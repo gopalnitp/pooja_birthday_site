@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Happy Birthday — a small greeting page." />
   <title>Happy Birthday My Love ❤️</title>
   <style>
+    :root { --accent: #ff4d6d; --card-bg: #ffffffcc; --text: #333; }
+    html,body { height:100%; }
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      color: #333;
+      color: var(--text);
       text-align: center;
     }
     .container {
@@ -20,96 +23,155 @@
       align-items: center;
       padding: 20px;
     }
-    h1 {
-      font-size: 3rem;
+    header h1 {
+      font-size: 2.4rem;
       color: #fff;
-      margin-bottom: 10px;
-      animation: fadeIn 2s ease-in-out;
+      margin: 0 0 6px;
+      animation: fadeIn 1.6s ease-in-out;
     }
-    h2 {
+    header h2 {
       color: #fff;
       font-weight: 400;
-      margin-bottom: 30px;
+      margin: 0 0 20px;
     }
     .card {
-      background: #fff;
+      background: var(--card-bg);
+      backdrop-filter: blur(6px);
       border-radius: 20px;
-      padding: 30px;
-      max-width: 500px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      animation: slideUp 1.5s ease;
+      padding: 28px;
+      max-width: 520px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+      animation: slideUp 1s ease;
+      text-align: left;
     }
     .card p {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       line-height: 1.6;
+      margin: 0 0 12px;
     }
     .heart {
       font-size: 3rem;
-      color: #ff4d6d;
+      color: var(--accent);
+      display: inline-block;
+      margin-bottom: 8px;
       animation: pulse 1.2s infinite;
     }
+    .visually-hidden {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden;
+      clip: rect(1px,1px,1px,1px);
+      white-space: nowrap;
+    }
     button {
-      margin-top: 20px;
-      padding: 12px 25px;
+      margin-top: 18px;
+      padding: 12px 22px;
       font-size: 1rem;
       border: none;
       border-radius: 25px;
-      background: #ff4d6d;
+      background: var(--accent);
       color: #fff;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.15s, box-shadow 0.15s;
     }
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    button:hover, button:focus {
+      transform: scale(1.03);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      outline: none;
     }
     footer {
-      margin-top: 30px;
+      margin-top: 24px;
       color: #fff;
       font-size: 0.9rem;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes slideUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(28px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+    /* Responsive tweaks */
+    @media (max-width:480px) {
+      header h1 { font-size: 1.6rem; }
+      .card { padding: 20px; border-radius: 16px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Happy Birthday 🎂</h1>
-    <h2>My Beautiful Wife</h2>
+    <header>
+      <h1>Happy Birthday 🎂</h1>
+      <h2>My Beautiful Wife</h2>
+    </header>
 
-    <div class="card">
-      <div class="heart">❤️</div>
+    <main role="main" class="card" aria-labelledby="greeting-title">
+      <div aria-hidden="true" class="heart">❤️</div>
+      <span class="visually-hidden">Heart</span>
+
+      <p id="greeting-title"><strong>To my love,</strong></p>
+
       <p>
-        On this special day, I just want to remind you how much you mean to me.
-        You make my life brighter, happier, and more beautiful every single day.
+        On this special day, I want to remind you how much you mean to me.
+        You make my life brighter, happier, and more beautiful every day.
       </p>
+
       <p>
         May your birthday be filled with love, laughter, surprises, and all the happiness you deserve.
       </p>
-      <p><strong>I love you, today and always.</strong></p>
-      <button onclick="showMessage()">Click for a Surprise</button>
-    </div>
 
-    <footer>
-      — With all my love 💕
-    </footer>
+      <p><strong>I love you, today and always.</strong></p>
+
+      <button type="button" id="surpriseBtn" aria-label="Show birthday surprise">Click for a Surprise</button>
+    </main>
+
+    <footer aria-hidden="false">— With all my love 💕</footer>
   </div>
 
+  <noscript>
+    <div style="position:fixed;left:0;right:0;bottom:0;background:#fffa; padding:10px; text-align:center;">
+      JavaScript is disabled — to see the surprise click the button, please enable JS.
+    </div>
+  </noscript>
+
   <script>
-    function showMessage() {
-      alert("You are my best gift in life. Happy Birthday, my love! 💖🎉");
-    }
+    document.getElementById('surpriseBtn').addEventListener('click', function () {
+      // Prefer a simple modal experience rather than an alert
+      const modal = document.createElement('div');
+      modal.style.position = 'fixed';
+      modal.style.left = 0;
+      modal.style.top = 0;
+      modal.style.right = 0;
+      modal.style.bottom = 0;
+      modal.style.display = 'flex';
+      modal.style.alignItems = 'center';
+      modal.style.justifyContent = 'center';
+      modal.style.background = 'rgba(0,0,0,0.5)';
+      modal.style.zIndex = 9999;
+
+      const box = document.createElement('div');
+      box.style.background = '#fff';
+      box.style.color = '#111';
+      box.style.padding = '22px';
+      box.style.borderRadius = '12px';
+      box.style.maxWidth = '90%';
+      box.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+      box.innerHTML = '<p style="margin:0 0 12px;font-size:1.1rem;">You are my best gift in life. Happy Birthday, my love! 💖🎉</p>';
+
+      const close = document.createElement('button');
+      close.textContent = 'Close';
+      close.style.marginTop = '8px';
+      close.style.padding = '8px 14px';
+      close.style.border = 'none';
+      close.style.borderRadius = '8px';
+      close.style.background = '#ff4d6d';
+      close.style.color = '#fff';
+      close.addEventListener('click', function () {
+        document.body.removeChild(modal);
+      });
+
+      box.appendChild(close);
+      modal.appendChild(box);
+      document.body.appendChild(modal);
+      close.focus();
+    });
   </script>
 </body>
 </html>
